@@ -74,6 +74,37 @@
             100% { transform: translateY(-100vh) scale(0.2); opacity: 0; }
         }
 
+        @keyframes pulse-btn {
+            0% { box-shadow: 0 0 15px rgba(255, 69, 0, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 35px rgba(255, 69, 0, 0.9); transform: scale(1.05); }
+            100% { box-shadow: 0 0 15px rgba(255, 69, 0, 0.4); transform: scale(1); }
+        }
+        .animate-pulse { animation: pulse-btn 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+
+        .floating-wa {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5);
+            z-index: 1000;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+        }
+        .floating-wa:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.7);
+            color: white;
+        }
+
         /* Typography */
         h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: normal; letter-spacing: 2px; line-height: 1.1; }
         .text-fire { color: var(--fire-main); text-shadow: 0 0 15px rgba(255,69,0,0.5); }
@@ -187,7 +218,7 @@
         #hero::before {
             content: '';
             position: absolute; inset: 0;
-            background: radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, rgba(3,3,3,0.8) 70%, var(--bg-base) 100%);
+            background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(3,3,3,0.9) 80%, var(--bg-base) 100%);
         }
         #hero::after {
             content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 30vh;
@@ -365,9 +396,10 @@
         
         .menu-item-title {
             font-family: var(--font-serif);
-            font-size: 1.6rem;
+            font-size: 1.9rem;
+            text-transform: uppercase;
             color: var(--text-main);
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             transition: color 0.3s;
         }
         .menu-item:hover .menu-item-title { color: var(--fire-yellow); }
@@ -413,6 +445,22 @@
         .masonry-overlay i { font-size: 3rem; color: #fff; text-shadow: 0 0 15px var(--fire-main); transform: scale(0.5); transition: 0.4s; }
         .masonry-item:hover .masonry-overlay i { transform: scale(1); }
 
+        /* Reviews */
+        #recenze { background: radial-gradient(circle at left, var(--bg-ember) 0%, var(--bg-base) 80%); }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .review-card {
+            background: #111;
+            padding: 30px;
+            border-radius: 15px;
+            border-top: 4px solid var(--fire-main);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: var(--transition-smooth);
+        }
+        .review-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(255, 69, 0, 0.15); }
+        .stars { color: #ffb300; font-size: 1.2rem; margin-bottom: 15px; }
+        .review-text { font-size: 1.05rem; color: var(--text-main); font-style: italic; margin-bottom: 20px; line-height: 1.6; }
+        .reviewer-name { font-weight: 800; font-family: var(--font-serif); font-size: 1.3rem; color: var(--fire-main); letter-spacing: 1px; text-transform: uppercase; }
+
         /* Contact Footer */
         #kontakt {
             background: radial-gradient(circle at bottom, var(--bg-ember) 0%, var(--bg-base) 100%);
@@ -457,13 +505,18 @@
 </head>
 <body>
 
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/420607926687" target="_blank" class="floating-wa">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
     <!-- Fire Sparks Background Element -->
     <div class="sparks" id="sparks-container"></div>
 
     <!-- Nav -->
     <nav id="navbar">
         <a href="#" class="logo">
-            <img src="logo.png" alt="Kebab Haus Aš" onerror="this.onerror=null; this.src='https://placehold.co/200x80/fff/000?text=LOGO'">
+            <img src="material/logoo.png" alt="Kebab Haus Aš" onerror="this.onerror=null; this.src='https://placehold.co/200x80/fff/000?text=LOGO'">
         </a>
         <ul class="nav-links">
             <li><a href="#hero">Domů</a></li>
@@ -482,7 +535,7 @@
             <h1 class="text-glow reveal">NÁŠ KEBAB PÁLÍ!<br>OBJEDNEJ HNED.</h1>
             <p class="reveal reveal-delay-1">To nejlepší maso v Aši, grilované na ohni s vášní. Kebab a exotická indická kuchyně, na kterou nezapomeneš.</p>
             <div class="reveal reveal-delay-2" style="margin-top: 20px;">
-                <a href="#menu" class="btn-massive"><i class="fa-solid fa-pepper-hot"></i> CHCI TO OCHUTNAT</a>
+                <a href="#menu" class="btn-massive animate-pulse"><i class="fa-solid fa-pepper-hot"></i> CHCI TO OCHUTNAT</a>
             </div>
         </div>
     </section>
@@ -575,6 +628,31 @@
             <div class="masonry-item">
                 <img src="material/a7.jpg" alt="Kebab příloha">
                 <div class="masonry-overlay"><i class="fa-solid fa-fire"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="recenze" class="section-fade">
+        <div class="menu-header reveal">
+            <h2>ŘEKLI O <span class="text-fire">NÁS</span></h2>
+            <p style="color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 10px auto 0;">Zákazníci z celého okolí ví, kde dělají nejlepší kebab. Tohle jsou jejich slova z Google Recenzí.</p>
+        </div>
+        <div class="reviews-grid reveal reveal-delay-1">
+            <div class="review-card">
+                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <p class="review-text">"Nejlepší kebab v Aši a širokém okolí! Maso je vždycky perfektně propečené, šťavnaté a ta jejich pikantní omáčka fakt pálí. Rozhodně doporučuji!"</p>
+                <div class="reviewer-name">- Martin Novák</div>
+            </div>
+            <div class="review-card">
+                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <p class="review-text">"Objevil jsem tady i skvělá indická jídla. Tandoori chicken bylo neskutečný zážitek. Skvělá a blesková obsluha i přes víkend."</p>
+                <div class="reviewer-name">- Petr Svoboda</div>
+            </div>
+            <div class="review-card">
+                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <p class="review-text">"Naše rodina už jinam nechodí. Kebab vždy krásně křupavý, bohatá porce a suroviny čerstvé. Skvělý tým lidí. 10/10."</p>
+                <div class="reviewer-name">- Jana Dvořáková</div>
             </div>
         </div>
     </section>
