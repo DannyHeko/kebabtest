@@ -1,0 +1,151 @@
+MENU:
+
+
+Hawai Doner Kebab
+Salát,dresing,ananas,maso
+155 Kč
++
+Doner Kebab
+Salát,dresing,maso
+140 Kč
++
+Doner Box
+Salát,hranolky,dresing,maso
+130 Kč
++
+Chicken nugets
+Kuřecí nugety,hranolky,kečup
+135 Kč
++
+Durum kebab
+Salát,dresing,maso
+155 Kč
++
+Veg Durum kebab
+Salát,dresing,falafel
+150 Kč
++
+Havai Durum kebab
+Salát,dresing,maso,ananas
+165 Kč
++
+Lahmacum s masem
+Salát,lahmancun,dresing,maso
+180 Kč
++
+Kebab talíř s hranolky
+Salát,dresing,maso,hranolky
+240 Kč
++
+Kebab talíř s chlebem
+Salát,dresing,maso,chléb
+210 Kč
++
+Míchaný salát se sýrem
+Saláty,dresing,sýr
+125 Kč
++
+Míchaný salát s tuňákem
+Salát,dresing,tuňák
+170 Kč
++
+Míchaný salát s masem
+Salát,dresing,maso
+170 Kč
++
+Zapékané brambory s masem,smetanou a sýrem
+250 Kč
++
+Piraki
+Placka, eidam syr balkán syr salám šunka kukuřice omáčka
+200 Kč
++
+Bolani
+Placka, iedams syr balkán syr salám šunka kečup a omáčka
+200 Kč
++
+Indická jídla
+
+1 Chicken rolls
+5ks   Smažené jarní závitky s kuřecim masem a zeleninou
+130 Kč
++
+2 Paneer Rolls
+5ks    Smažené jarní závitky sýrem a zeleninu
+130 Kč
++
+3 Chicken Samosa
+5ks  Smažené taštičky plněné s kuřecí a zeleninou
+130 Kč
++
+4 Veg Samosa
+5 ks   Smažené Taštičky plněné s zeleninou
+130 Kč
++
+5 Indian chicken samosa
+3  Smažené indické taštičky plněné s kuřecím a zeleninou
+140 Kč
++
+6 Shami kebab
+5ks   Mleté kuřecí maso, cizrna a indické koření. Hranolky
+200 Kč
++
+7 Parata
+1ks Indická vrstvená placka
+30 Kč
++
+8 Grilovaný kuřecí křídla s hranolkama
+5ks  Grilování kuřecí křídla s indickým kořením
+140 Kč
++
+9 Reshmi kebab s chlebem
+ Grilování mlety jehněčí a kuřecí maso s indickým kořením
+250 Kč
++
+10 Seekh kebab s chlebem
+ Grilování mletý kuřecí kebab s indickým kořením
+230 Kč
++
+12 Seekh kebab chilli s chlebem
+    Grilování kuřecí kebab s ostrý čili s indickým kořením
+230 Kč
++
+13 Chicken tikka kebab s chlebem a salátem
+  Grilování kuřecí kousky s indickým kořením
+250 Kč
++
+14 Chaapal kebab s chlebem a salátem
+3ks Smažené mleté kuřecí maso s zeleninou a kořeni
+200 Kč
++
+15 Tandoori chicken s chlebem a salátem
+1ks  Tandoori Kuře s indickým kořením
+220 Kč
++
+16 Mughlai chicken s chlebem
+375g Kuřecí kari s smetanou a aromatickou indickou koření
+230 Kč
++
+17 Butter chicken s chlebem
+375g   Kuřecí kari s máslem á aromatické indické koření
+230 Kč
++
+18 Chicken cheese s chlebem
+375g   Kuřecí kari s sýrem a aromatické indické koření
+230 Kč
++
+19 Tikka masala s chlebem
+350g    Kuřecí kari s rajčatovou omáčkou v indickém kořením
+230 Kč
++
+20 Kebab chicken masala s chlebem
+375g    Kuřecí kari s rajčatovy sýr a ořechy a aromatické indické koření
+230 Kč
++
+21 Chicken karahi s chlebem
+375g    Kuřecí kari v Pákistánské koření
+230 Kč
++
+22 Charsi karahi s chlebem
+350g    Kuřecí kari v rajčatové omáčce čili a pepř
+230 Kč

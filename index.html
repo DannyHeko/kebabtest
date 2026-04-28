@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kebab Haus Aš | Oheň, Chuť a Maso</title>
+    
+    <meta name="description" content="Kebab Haus Aš. Zážitek z pálivého kebabu a autentické indické kuchyně. Naše maso pálí, naše chutě vás dostanou.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* CSS Variables - FIRE STYLE */
+        :root {
+            --bg-base: #030303; /* Carbon black */
+            --bg-ember: #1a0500; /* Deep fiery red/black */
+            --bg-surface: rgba(20, 5, 0, 0.8);
+            
+            --fire-main: #ff4500; /* Bright orange-red */
+            --fire-glow: rgba(255, 165, 0, 0.7);
+            --fire-dark: #990f02; /* Deep red */
+            --fire-yellow: #ffb300;
+            
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --text-hot: #ffebcc;
+            
+            --font-sans: 'Montserrat', sans-serif;
+            --font-serif: 'Bebas Neue', sans-serif;
+            
+            --transition-smooth: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Sparks Animation */
+        .sparks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .spark {
+            position: absolute;
+            bottom: -10px;
+            width: 3px;
+            height: 3px;
+            background: var(--fire-main);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--fire-yellow), 0 0 20px var(--fire-main);
+            animation: rise infinite linear;
+            opacity: 0;
+        }
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) scale(0.2); opacity: 0; }
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: normal; letter-spacing: 2px; line-height: 1.1; }
+        .text-fire { color: var(--fire-main); text-shadow: 0 0 15px rgba(255,69,0,0.5); }
+        .text-glow { color: var(--text-hot); text-shadow: 0 0 20px var(--fire-main), 0 0 40px var(--fire-dark); }
+
+        /* General Layout */
+        section {
+            padding: 100px 5%;
+            max-width: 1600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Smooth transitions between sections */
+        .section-fade {
+            position: relative;
+        }
+        .section-fade::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0; height: 150px;
+            background: linear-gradient(to top, var(--bg-base), transparent);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Scroll Animations */
+        .reveal { opacity: 0; transform: translateY(30px); transition: var(--transition-smooth); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 1200px;
+            z-index: 1000;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 69, 0, 0.2);
+            border-radius: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 30px;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        nav.scrolled {
+            border-color: var(--fire-main);
+            box-shadow: 0 5px 25px rgba(255, 69, 0, 0.15);
+        }
+        
+        nav .logo {
+            background: rgba(255,255,255,0.95);
+            padding: 4px 15px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.4);
+        }
+        nav .logo img {
+            height: 55px; width: auto; object-fit: contain; mix-blend-mode: multiply;
+        }
+
+        nav .nav-links { display: flex; list-style: none; gap: 30px; align-items: center; }
+        nav .nav-links a {
+            text-decoration: none; color: var(--text-main); font-weight: 600; font-size: 0.95rem;
+            text-transform: uppercase; letter-spacing: 1.5px; transition: var(--transition-smooth);
+        }
+        nav .nav-links a:hover, nav .nav-links a.active { color: var(--fire-yellow); text-shadow: 0 0 10px var(--fire-main); }
+
+        .btn-hot {
+            background: var(--fire-dark);
+            color: white !important;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 800;
+            border: 1px solid var(--fire-main);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.3);
+            transition: var(--transition-smooth);
+        }
+        .btn-hot:hover {
+            background: var(--fire-main);
+            box-shadow: 0 0 25px var(--fire-glow);
+            transform: scale(1.05);
+            color: #fff !important;
+        }
+
+        .mobile-menu-btn { display: none; font-size: 1.8rem; cursor: pointer; color: var(--fire-main); }
+
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            max-width: 100%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: url('kebab-hero.png') center/cover no-repeat;
+        }
+        
+        #hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, rgba(3,3,3,0.8) 70%, var(--bg-base) 100%);
+        }
+        #hero::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 30vh;
+            background: linear-gradient(to top, var(--bg-base) 0%, transparent 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(4rem, 10vw, 8rem);
+            margin-bottom: 10px;
+            line-height: 0.9;
+        }
+
+        .hero-content p {
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 10px #000;
+            letter-spacing: 1px;
+        }
+
+        .btn-massive {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: var(--fire-dark);
+            color: white;
+            text-decoration: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            font-family: var(--font-serif);
+            letter-spacing: 2px;
+            border: 2px solid var(--fire-main);
+            box-shadow: 0 0 20px var(--fire-glow);
+            transition: var(--transition-smooth);
+        }
+        .btn-massive:hover {
+            background: var(--fire-main);
+            box-shadow: 0 0 40px var(--fire-glow);
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        /* About Section */
+        #o-nas {
+            background: radial-gradient(circle at right, var(--bg-ember) 0%, var(--bg-base) 60%);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 4rem;
+            margin-bottom: 25px;
+        }
+        
+        .about-text p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .fire-features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .fire-feature {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--bg-surface);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid var(--fire-main);
+            transition: var(--transition-smooth);
+        }
+        .fire-feature:hover {
+            transform: translateX(10px);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.1);
+        }
+
+        .fire-icon {
+            font-size: 2rem;
+            color: var(--fire-main);
+            text-shadow: 0 0 10px var(--fire-glow);
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(255, 69, 0, 0.15);
+        }
+        .about-image img {
+            width: 100%;
+            display: block;
+            filter: brightness(0.8) contrast(1.2) sepia(0.3) saturate(1.4);
+        }
+        .about-image::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to top, var(--bg-base), transparent);
+            opacity: 0.5;
+        }
+
+        /* Menu Section */
+        #menu {
+            background: var(--bg-base);
+            position: relative;
+        }
+        
+        #menu::before {
+            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 60%; height: 2px;
+            background: radial-gradient(circle, var(--fire-main) 0%, transparent 100%);
+            opacity: 0.3;
+        }
+
+        .menu-header { text-align: center; margin-bottom: 50px; }
+        .menu-header h2 { font-size: 4.5rem; }
+
+        .menu-tabs {
+            display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--fire-dark);
+            color: white;
+            border-color: var(--fire-main);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.4);
+        }
+
+        .menu-category-content { display: none; animation: fadeIn 0.5s ease; max-width: 1100px; margin: 0 auto; }
+        .menu-category-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .menu-list {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px 60px;
+        }
+
+        .menu-item {
+            position: relative;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+        .menu-item:hover { border-bottom-color: var(--fire-main); }
+
+        .menu-item-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5px; }
+        
+        .menu-item-title {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            color: var(--text-main);
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+        .menu-item:hover .menu-item-title { color: var(--fire-yellow); }
+
+        .menu-item-price {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--fire-main);
+            text-shadow: 0 0 10px rgba(255,69,0,0.3);
+        }
+
+        .menu-item-desc { font-size: 0.95rem; color: var(--text-muted); }
+
+        /* Featured Menu Item Override */
+        .featured-item {
+            grid-column: 1 / -1;
+            display: flex; gap: 30px;
+            background: linear-gradient(135deg, var(--bg-ember) 0%, var(--bg-surface) 100%);
+            padding: 30px; border-radius: 20px;
+            border: 1px solid rgba(255, 69, 0, 0.2);
+            align-items: center;
+        }
+        .featured-item img {
+            width: 120px; height: 120px; border-radius: 15px; object-fit: cover;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+        .featured-info { flex-grow: 1; border: none; padding: 0; }
+
+        /* Masonry Gallery */
+        #galerie { background: var(--bg-base); padding-bottom: 50px; }
+        .masonry { column-count: 3; column-gap: 20px; }
+        .masonry-item {
+            break-inside: avoid; margin-bottom: 20px; border-radius: 10px; overflow: hidden;
+            position: relative; cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .masonry-item img { width: 100%; display: block; transition: transform 0.6s ease; filter: brightness(0.85) contrast(1.2) sepia(0.2) saturate(1.3); }
+        .masonry-item:hover img { transform: scale(1.08); }
+        .masonry-overlay {
+            position: absolute; inset: 0; background: linear-gradient(to top, rgba(255,69,0,0.4), transparent);
+            opacity: 0; transition: var(--transition-smooth); display: flex; align-items: center; justify-content: center;
+        }
+        .masonry-item:hover .masonry-overlay { opacity: 1; }
+        .masonry-overlay i { font-size: 3rem; color: #fff; text-shadow: 0 0 15px var(--fire-main); transform: scale(0.5); transition: 0.4s; }
+        .masonry-item:hover .masonry-overlay i { transform: scale(1); }
+
+        /* Contact Footer */
+        #kontakt {
+            background: radial-gradient(circle at bottom, var(--bg-ember) 0%, var(--bg-base) 100%);
+            padding: 80px 5% 40px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 69, 0, 0.1);
+        }
+
+        .contact-box-wrap {
+            display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 60px;
+        }
+
+        .c-box {
+            background: var(--bg-surface);
+            padding: 30px; border-radius: 15px; min-width: 280px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition-smooth);
+        }
+        .c-box:hover { border-color: var(--fire-main); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255, 69, 0, 0.1); }
+        
+        .c-box i { font-size: 2.5rem; color: var(--fire-yellow); margin-bottom: 15px; display: block; }
+        .c-box h4 { font-size: 2rem; color: var(--text-main); margin-bottom: 10px; }
+        .c-box p, .c-box a { color: var(--text-muted); text-decoration: none; font-size: 1.1rem; }
+        .c-box a:hover { color: var(--fire-main); }
+
+        footer p { color: rgba(255,255,255,0.3); margin-top: 50px; font-size: 0.9rem; }
+
+        @media (max-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr; }
+            .menu-list { grid-template-columns: 1fr; }
+            .masonry { column-count: 2; }
+        }
+        @media (max-width: 768px) {
+            nav { padding: 12px 20px; }
+            nav .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero-content h1 { font-size: 4rem; }
+            .masonry { column-count: 1; }
+            .featured-item { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fire Sparks Background Element -->
+    <div class="sparks" id="sparks-container"></div>
+
+    <!-- Nav -->
+    <nav id="navbar">
+        <a href="#" class="logo">
+            <img src="logo.png" alt="Kebab Haus Aš" onerror="this.onerror=null; this.src='https://placehold.co/200x80/fff/000?text=LOGO'">
+        </a>
+        <ul class="nav-links">
+            <li><a href="#hero">Domů</a></li>
+            <li><a href="#o-nas">O Nás</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#galerie">Galerie</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
+            <li><a href="https://wa.me/420607926687" target="_blank" class="btn-hot">Objednat</a></li>
+        </ul>
+        <div class="mobile-menu-btn"><i class="fa-solid fa-fire"></i></div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="section-fade">
+        <div class="hero-content">
+            <h1 class="text-glow reveal">NÁŠ KEBAB PÁLÍ!<br>OBJEDNEJ HNED.</h1>
+            <p class="reveal reveal-delay-1">To nejlepší maso v Aši, grilované na ohni s vášní. Kebab a exotická indická kuchyně, na kterou nezapomeneš.</p>
+            <div class="reveal reveal-delay-2" style="margin-top: 20px;">
+                <a href="#menu" class="btn-massive"><i class="fa-solid fa-pepper-hot"></i> CHCI TO OCHUTNAT</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="o-nas" class="section-fade">
+        <div class="about-grid">
+            <div class="about-text reveal">
+                <h2>Oheň, <span class="text-fire">Maso</span> a tradice</h2>
+                <p>Kebab Haus Aš není jen fast food. Jsme posedlí chutí. Pečeme na nejvyšších teplotách, marinujeme podle tajných rodinných receptur a kromě legendárního kebabu servírujeme i autentická indická kari, která ti rozpumpují krev.</p>
+                
+                <div class="fire-features">
+                    <div class="fire-feature">
+                        <i class="fa-solid fa-fire-flame-curved fire-icon"></i>
+                        <div>
+                            <h3 style="font-size: 1.5rem; color: #fff;">Vyladěné maso</h3>
+                            <p style="margin:0; font-size:0.95rem;">Každý den čerstvé, šťavnaté a perfektně propečené ze všech stran.</p>
+                        </div>
+                    </div>
+                    <div class="fire-feature">
+                        <i class="fa-solid fa-pepper-hot fire-icon"></i>
+                        <div>
+                            <h3 style="font-size: 1.5rem; color: #fff;">Pálivé i Indické</h3>
+                            <p style="margin:0; font-size:0.95rem;">Pokud miluješ oheň v puse, naše speciální omáčky a indická jídla tě dostanou.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="about-image reveal reveal-delay-1">
+                <img src="material/a2.jpg" alt="Maso na grilu">
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="section-fade">
+        <div class="menu-header reveal">
+            <h2>ŽHAVÉ <span class="text-fire">MENU</span></h2>
+        </div>
+
+        <div class="menu-tabs reveal reveal-delay-1">
+            <button class="tab-btn active" onclick="switchTab('kebab')">Kebab & Maso</button>
+            <button class="tab-btn" onclick="switchTab('indie')">Indický Oheň</button>
+            <button class="tab-btn" onclick="switchTab('salaty')">Saláty</button>
+        </div>
+
+        <!-- Kebab Tab -->
+        <div id="tab-kebab" class="menu-category-content active">
+            <div class="menu-list" id="kebab-list"></div>
+        </div>
+
+        <!-- Indie Tab -->
+        <div id="tab-indie" class="menu-category-content">
+            <div class="menu-list" id="indie-list"></div>
+        </div>
+
+        <!-- Salaty Tab -->
+        <div id="tab-salaty" class="menu-category-content">
+            <div class="menu-list" id="salaty-list"></div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="galerie">
+        <div class="menu-header reveal">
+            <h2>GALERIE <span class="text-fire">CHUTÍ</span></h2>
+        </div>
+        
+        <div class="masonry reveal reveal-delay-1">
+            <div class="masonry-item">
+                <img src="material/a01.jpg" alt="Kebab detail">
+                <div class="masonry-overlay"><i class="fa-solid fa-fire"></i></div>
+            </div>
+            <div class="masonry-item">
+                <img src="material/a2.jpg" alt="Kebab gril">
+                <div class="masonry-overlay"><i class="fa-solid fa-fire"></i></div>
+            </div>
+            <div class="masonry-item">
+                <img src="material/a3.jpg" alt="Maso">
+                <div class="masonry-overlay"><i class="fa-solid fa-fire"></i></div>
+            </div>
+            <div class="masonry-item">
+                <img src="material/a5.jpg" alt="Kebab specialita">
+                <div class="masonry-overlay"><i class="fa-solid fa-fire"></i></div>
+            </div>
+            <div class="masonry-item">
+                <img src="material/a6.jpg" alt="Kebab Talíř">
+                <div class="masonry-overlay"><i class="fa-solid fa-fire"></i></div>
+            </div>
+            <div class="masonry-item">
+                <img src="material/a7.jpg" alt="Kebab příloha">
+                <div class="masonry-overlay"><i class="fa-solid fa-fire"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="kontakt">
+        <h2 style="font-size: 3.5rem; margin-bottom: 50px;">ZAVOLEJ <span class="text-fire">NÁM</span></h2>
+        
+        <div class="contact-box-wrap reveal">
+            <div class="c-box">
+                <i class="fa-solid fa-location-dot"></i>
+                <h4>KDE JSME</h4>
+                <p>Šumavská 806/1, Aš</p>
+            </div>
+            
+            <div class="c-box">
+                <i class="fa-brands fa-whatsapp"></i>
+                <h4>ROZVOZ & OBJEDNÁVKY</h4>
+                <a href="tel:+420607926687">+420 607 926 687</a>
+            </div>
+
+            <div class="c-box">
+                <i class="fa-solid fa-clock"></i>
+                <h4>MÁME OTEVŘENO</h4>
+                <p>Po - Pá: 10:00 - 22:00<br>So - Ne: 11:00 - 23:00</p>
+            </div>
+        </div>
+        
+        <a href="https://wa.me/420607926687" class="btn-massive reveal reveal-delay-1" style="font-size:1.2rem; padding: 15px 40px;">
+            <i class="fa-brands fa-whatsapp"></i> Napsat hned na WhatsApp
+        </a>
+
+        <footer>
+            <div style="margin-top: 40px; display: flex; gap: 20px; justify-content: center;">
+                <a href="https://www.facebook.com/kebabhaus.cz/" target="_blank" style="color: var(--fire-main); font-size: 1.5rem; transition: 0.3s;"><i class="fa-brands fa-facebook"></i></a>
+            </div>
+            <p>&copy; 2026 Kebab Haus Aš. Žhavá chuť města.</p>
+        </footer>
+    </section>
+
+    <!-- Scripts -->
+    <script>
+        // Menu Data
+        const menuData = {
+            kebab: [
+                { title: "Hawai Doner Kebab", desc: "Salát, dresing, ananas, maso", price: "155 Kč" },
+                { title: "Doner Kebab", desc: "Salát, dresing, maso", price: "140 Kč" },
+                { title: "Doner Box", desc: "Salát, hranolky, dresing, maso", price: "130 Kč" },
+                { title: "Chicken nugets", desc: "Kuřecí nugety, hranolky, kečup", price: "135 Kč" },
+                { title: "Durum kebab", desc: "Salát, dresing, maso", price: "155 Kč" },
+                { title: "Veg Durum kebab", desc: "Salát, dresing, falafel", price: "150 Kč" },
+                { title: "Havai Durum kebab", desc: "Salát, dresing, maso, ananas", price: "165 Kč" },
+                { title: "Lahmacum s masem", desc: "Salát, lahmancun, dresing, maso", price: "180 Kč" },
+                { title: "Kebab talíř s hranolky", desc: "Salát, dresing, maso, hranolky", price: "240 Kč", featured: true, img: "https://images.unsplash.com/photo-1623653387945-2fd25214f8fc?q=80&w=400&auto=format&fit=crop" },
+                { title: "Kebab talíř s chlebem", desc: "Salát, dresing, maso, chléb", price: "210 Kč" },
+                { title: "Zapékané brambory", desc: "S masem, smetanou a sýrem", price: "250 Kč" },
+                { title: "Piraki", desc: "Placka, eidam, balkán, salám, šunka, kukuřice, omáčka", price: "200 Kč" },
+                { title: "Bolani", desc: "Placka, eidam, balkán, salám, šunka, kečup, omáčka", price: "200 Kč" }
+            ],
+            salaty: [
+                { title: "Míchaný salát se sýrem", desc: "Saláty, dresing, sýr", price: "125 Kč" },
+                { title: "Míchaný salát s tuňákem", desc: "Salát, dresing, tuňák", price: "170 Kč" },
+                { title: "Míchaný salát s masem", desc: "Salát, dresing, maso", price: "170 Kč" }
+            ],
+            indie: [
+                { title: "Chicken rolls", desc: "5ks Smažené jarní závitky s kuřecim masem a zeleninou", price: "130 Kč" },
+                { title: "Paneer Rolls", desc: "5ks Smažené jarní závitky sýrem a zeleninu", price: "130 Kč" },
+                { title: "Chicken Samosa", desc: "5ks Smažené taštičky plněné kuřecím a zeleninou", price: "130 Kč" },
+                { title: "Veg Samosa", desc: "5 ks Smažené taštičky plněné zeleninou", price: "130 Kč" },
+                { title: "Shami kebab", desc: "5ks Mleté kuřecí maso, cizrna a indické koření. Hranolky", price: "200 Kč" },
+                { title: "Parata", desc: "1ks Indická vrstvená placka", price: "30 Kč" },
+                { title: "Grilovaný kuřecí křídla", desc: "5ks s hranolkama a indickým kořením", price: "140 Kč" },
+                { title: "Reshmi kebab s chlebem", desc: "Grilování mlety jehněčí a kuřecí maso s indickým kořením", price: "250 Kč" },
+                { title: "Seekh kebab s chlebem", desc: "Grilování mletý kuřecí kebab s indickým kořením", price: "230 Kč" },
+                { title: "Chicken tikka kebab", desc: "S chlebem a salátem. Grilování kuřecí kousky s indickým kořením", price: "250 Kč", featured: true, img: "https://images.unsplash.com/photo-1599487405609-0824b26fa0c4?q=80&w=400&auto=format&fit=crop" },
+                { title: "Tandoori chicken", desc: "S chlebem a salátem. 1ks Tandoori Kuře s indickým kořením", price: "220 Kč" },
+                { title: "Butter chicken s chlebem", desc: "375g Kuřecí kari s máslem a aromatické indické koření", price: "230 Kč" },
+                { title: "Tikka masala s chlebem", desc: "350g Kuřecí kari s rajčatovou omáčkou v indickém kořením", price: "230 Kč" }
+            ]
+        };
+
+        function renderMenuCategory(items, containerId) {
+            const container = document.getElementById(containerId);
+            let html = '';
+            
+            items.forEach(item => {
+                if(item.featured) {
+                    html += `
+                        <div class="featured-item menu-item">
+                            <img src="${item.img}" alt="${item.title}">
+                            <div class="featured-info">
+                                <div class="menu-item-header">
+                                    <span class="menu-item-title">${item.title}</span>
+                                    <span class="menu-item-price">${item.price}</span>
+                                </div>
+                                <p class="menu-item-desc">${item.desc}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="menu-item">
+                            <div class="menu-item-header">
+                                <span class="menu-item-title">${item.title}</span>
+                                <span class="menu-item-price">${item.price}</span>
+                            </div>
+                            <p class="menu-item-desc">${item.desc}</p>
+                        </div>
+                    `;
+                }
+            });
+            container.innerHTML = html;
+        }
+
+        renderMenuCategory(menuData.kebab, 'kebab-list');
+        renderMenuCategory(menuData.indie, 'indie-list');
+        renderMenuCategory(menuData.salaty, 'salaty-list');
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('.menu-category-content').forEach(content => content.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+
+        // Nav Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) navbar.classList.add('scrolled');
+            else navbar.classList.remove('scrolled');
+        });
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Generate Sparks
+        const sparksContainer = document.getElementById('sparks-container');
+        for(let i=0; i<30; i++) {
+            const spark = document.createElement('div');
+            spark.className = 'spark';
+            spark.style.left = Math.random() * 100 + 'vw';
+            spark.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            spark.style.animationDelay = Math.random() * 5 + 's';
+            sparksContainer.appendChild(spark);
+        }
+    </script>
+</body>
+</html>
